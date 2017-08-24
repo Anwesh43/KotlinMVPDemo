@@ -22,7 +22,7 @@ class CircularLoaderHolder:IModelContainer {
         fun update() {
             scale -= 0.1f
         }
-        fun stopped():Boolean = scale == 0f
+        fun stopped():Boolean = scale <= 0f
     }
     companion object {
         var circularLoaders: ConcurrentLinkedQueue<CircularLoader> = ConcurrentLinkedQueue()
