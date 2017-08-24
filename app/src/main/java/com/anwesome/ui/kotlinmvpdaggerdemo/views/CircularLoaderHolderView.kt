@@ -1,4 +1,4 @@
-package com.anwesome.ui.kotlinmvpdaggerdemo
+package com.anwesome.ui.kotlinmvpdaggerdemo.views
 
 import android.content.Context
 import android.graphics.Canvas
@@ -9,17 +9,17 @@ import android.view.View
 /**
  * Created by anweshmishra on 24/08/17.
  */
-class CircularLoaderHolderView(ctx:Context):View(ctx) {
-    private var tapHandler:TapHandler?=null
-    private var drawingHandler:DrawingHandler?=null
-    private var animationHandler:AnimationHandler?=null
-    private var stopAnimationHandler:StopAnimationHandler?=null
-    private var startAnimationHandler:StartAnimationHandler?=null
+class CircularLoaderHolderView(ctx: Context): View(ctx) {
+    private var tapHandler: TapHandler?=null
+    private var drawingHandler: DrawingHandler?=null
+    private var animationHandler: AnimationHandler?=null
+    private var stopAnimationHandler: StopAnimationHandler?=null
+    private var startAnimationHandler: StartAnimationHandler?=null
     var paint = Paint(Paint.ANTI_ALIAS_FLAG)
     fun handleTap(handler:(Float,Float)->Unit) {
         tapHandler = TapHandler(handler)
     }
-    fun handleDraw(handler:(Canvas,Paint)->Unit) {
+    fun handleDraw(handler:(Canvas, Paint)->Unit) {
         drawingHandler = DrawingHandler(handler)
     }
     fun handleAnimation(handler:()->Unit) {
@@ -31,7 +31,7 @@ class CircularLoaderHolderView(ctx:Context):View(ctx) {
     fun handleAnimationStop(handler:()->Boolean) {
         stopAnimationHandler = StopAnimationHandler(handler)
     }
-    override fun onDraw(canvas:Canvas) {
+    override fun onDraw(canvas: Canvas) {
         drawingHandler?.handler?.invoke(canvas,paint)
         if(!(stopAnimationHandler?.handler?.invoke()?:false)) {
             animationHandler?.handler?.invoke()
@@ -47,7 +47,7 @@ class CircularLoaderHolderView(ctx:Context):View(ctx) {
 
         }
     }
-    override fun onTouchEvent(event:MotionEvent):Boolean {
+    override fun onTouchEvent(event: MotionEvent):Boolean {
         when(event.action) {
             MotionEvent.ACTION_DOWN -> {
                 tapHandler?.handler?.invoke(event.x,event.y)
@@ -59,7 +59,7 @@ class CircularLoaderHolderView(ctx:Context):View(ctx) {
         return true
     }
     data class TapHandler(var handler:(Float,Float)->Unit)
-    data class DrawingHandler(var handler:(Canvas,Paint)->Unit)
+    data class DrawingHandler(var handler:(Canvas, Paint)->Unit)
     data class AnimationHandler(var handler:()->Unit)
     data class StopAnimationHandler(var handler:()->Boolean)
     data class StartAnimationHandler(var handler:()->Boolean)
