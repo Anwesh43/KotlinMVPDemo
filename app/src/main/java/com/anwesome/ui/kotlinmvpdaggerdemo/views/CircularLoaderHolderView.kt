@@ -2,6 +2,7 @@ package com.anwesome.ui.kotlinmvpdaggerdemo.views
 
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Paint
 import android.view.MotionEvent
 import android.view.View
@@ -32,6 +33,7 @@ class CircularLoaderHolderView(ctx: Context): View(ctx) {
         stopAnimationHandler = StopAnimationHandler(handler)
     }
     override fun onDraw(canvas: Canvas) {
+        canvas.drawColor(Color.parseColor("#212121"))
         drawingHandler?.handler?.invoke(canvas,paint)
         if(!(stopAnimationHandler?.handler?.invoke()?:false)) {
             animationHandler?.handler?.invoke()
