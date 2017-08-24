@@ -42,7 +42,7 @@ class CircularLoaderHolderView(ctx: Context): View(ctx) {
     }
     private fun animateView() {
         try {
-            Thread.sleep(50)
+            Thread.sleep(80)
             invalidate()
         }
         catch(ex:Exception) {
