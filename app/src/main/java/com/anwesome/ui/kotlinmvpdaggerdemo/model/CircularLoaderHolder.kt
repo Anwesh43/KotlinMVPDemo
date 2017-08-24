@@ -23,4 +23,7 @@ class CircularLoaderHolder:IModelContainer {
         }
         fun stopped():Boolean = scale == 0f
     }
+    companion object {
+        fun create(x:Float,y:Float):CircularLoader = CircularLoader(x,y)
+    }
 }

@@ -19,7 +19,7 @@ class CircularLoaderHolderPresenter:IPresenter {
         circularLoaderContainer = container as CircularLoaderHolder
     }
     override fun handlePresentation() {
-        
+
     }
 
 }
