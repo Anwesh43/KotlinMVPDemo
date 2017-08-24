@@ -4,6 +4,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
+import java.util.concurrent.ConcurrentLinkedQueue
 
 /**
  * Created by anweshmishra on 24/08/17.
@@ -24,6 +25,24 @@ class CircularLoaderHolder:IModelContainer {
         fun stopped():Boolean = scale == 0f
     }
     companion object {
-        fun create(x:Float,y:Float):CircularLoader = CircularLoader(x,y)
+        var circularLoaders: ConcurrentLinkedQueue<CircularLoader> = ConcurrentLinkedQueue()
+        fun create(x:Float,y:Float) {
+            circularLoaders.add(CircularLoader(x,y))
+        }
+        fun draw(canvas:Canvas,paint:Paint) {
+            circularLoaders.forEach {
+                it.draw(canvas,paint)
+            }
+        }
+        fun update() {
+            circularLoaders.forEach {
+                it.update()
+                if(it.stopped()) {
+                    circularLoaders.remove(it)
+                }
+            }
+        }
+        fun stopped():Boolean = circularLoaders.size == 0
+        fun started():Boolean = circularLoaders.size == 1
     }
 }
